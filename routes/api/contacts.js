@@ -1,27 +1,38 @@
 const express = require("express");
-const {
-  validationAdd,
-  validationPatch,
-} = require("../../middlewares/validation");
-
+const { addSchema, patchSchema, favSchema } = require("../../models/contacts");
+const validateBodyJoi = require("../../middlewares/validateJoi");
 const {
   getAllController,
   getByIdController,
   postController,
   putController,
   deleteController,
+  patchController,
 } = require("../../controllers");
+const isValidId = require("../../middlewares/isValidId");
 
 const router = express.Router();
 
 router.get("/", getAllController);
 
-router.get("/:contactId", getByIdController);
+router.get("/:contactId", isValidId, getByIdController);
 
-router.post("/", validationAdd, postController);
+router.post("/", validateBodyJoi(addSchema), postController);
 
-router.delete("/:contactId", deleteController);
+router.delete("/:contactId", isValidId, deleteController);
 
-router.put("/:contactId", validationPatch, putController);
+router.put(
+  "/:contactId",
+  isValidId,
+  validateBodyJoi(patchSchema),
+  putController
+);
+
+router.patch(
+  "/:contactId/favorite",
+  isValidId,
+  validateBodyJoi(favSchema),
+  patchController
+);
 
 module.exports = router;
