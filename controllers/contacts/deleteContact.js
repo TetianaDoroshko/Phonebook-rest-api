@@ -1,7 +1,7 @@
-const { Contact } = require("../models/contacts");
-const RequestError = require("../helpers/RequestError");
+const { Contact } = require("../../models/contacts");
+const RequestError = require("../../helpers/RequestError");
 
-const deleteController = async (req, res, next) => {
+const deleteContact = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const contact = await Contact.findByIdAndDelete(contactId);
@@ -15,4 +15,4 @@ const deleteController = async (req, res, next) => {
   }
 };
 
-module.exports = deleteController;
+module.exports = deleteContact;

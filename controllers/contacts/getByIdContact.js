@@ -1,7 +1,7 @@
-const { Contact } = require("../models/contacts");
-const RequestError = require("../helpers/RequestError");
+const { Contact } = require("../../models/contacts");
+const RequestError = require("../../helpers/RequestError");
 
-const getByIdController = async (req, res, next) => {
+const getByIdContact = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const contact = await Contact.findOne({ _id: contactId });
@@ -14,4 +14,4 @@ const getByIdController = async (req, res, next) => {
   }
 };
 
-module.exports = getByIdController;
+module.exports = getByIdContact;

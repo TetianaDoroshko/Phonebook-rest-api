@@ -1,7 +1,7 @@
-const { Contact } = require("../models/contacts");
-const RequestError = require("../helpers/RequestError");
+const { Contact } = require("../../models/contacts");
+const RequestError = require("../../helpers/RequestError");
 
-const patchController = async (req, res, next) => {
+const patchContact = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const body = req.body;
@@ -18,4 +18,4 @@ const patchController = async (req, res, next) => {
   }
 };
 
-module.exports = patchController;
+module.exports = patchContact;
