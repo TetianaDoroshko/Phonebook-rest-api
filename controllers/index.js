@@ -6,6 +6,7 @@ const {
   deleteContact,
   patchContact,
 } = require("./contacts");
+const { signUp } = require("./auth");
 
 module.exports = {
   getAllContact,
@@ -14,4 +15,5 @@ module.exports = {
   putContact,
   deleteContact,
   patchContact,
+  signUp,
 };
