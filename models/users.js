@@ -41,6 +41,11 @@ const signupSchema = Joi.object({
   token: Joi.string(),
 });
 
+const loginSchema = Joi.object({
+  password: Joi.string().required(),
+  email: Joi.string().email().required(),
+});
+
 // const patchSchema = Joi.object({
 //   name: Joi.string(),
 //   email: Joi.string().email(),
@@ -52,4 +57,4 @@ const signupSchema = Joi.object({
 //   favorite: Joi.boolean().required(),
 // });
 
-module.exports = { User, signupSchema };
+module.exports = { User, signupSchema, loginSchema };
