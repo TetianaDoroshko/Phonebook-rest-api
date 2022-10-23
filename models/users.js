@@ -46,6 +46,12 @@ const loginSchema = Joi.object({
   email: Joi.string().email().required(),
 });
 
+const updSubscrSchema = Joi.object({
+  subscription: Joi.string()
+    .insensitive(["starter", "pro", "business"])
+    .required(),
+});
+
 // const patchSchema = Joi.object({
 //   name: Joi.string(),
 //   email: Joi.string().email(),
@@ -57,4 +63,4 @@ const loginSchema = Joi.object({
 //   favorite: Joi.boolean().required(),
 // });
 
-module.exports = { User, signupSchema, loginSchema };
+module.exports = { User, signupSchema, loginSchema, updSubscrSchema };

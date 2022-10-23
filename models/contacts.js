@@ -23,6 +23,7 @@ const contactSchema = Schema(
     owner: {
       type: SchemaTypes.ObjectId,
       ref: "user",
+      required: [true, "Set owner of contact"],
     },
   },
   { versionKey: false, timestamps: true }
