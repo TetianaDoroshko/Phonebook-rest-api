@@ -6,8 +6,8 @@ const {
   deleteContact,
   patchContact,
 } = require("./contacts");
-const { signUp, login, logout } = require("./auth");
-const { getCurrent, updateSubscr } = require("./users");
+const { signUp, login, logout, getCurrent } = require("./auth");
+const { updateSubscr, updateAvatar } = require("./users");
 
 module.exports = {
   getAllContact,
@@ -21,4 +21,5 @@ module.exports = {
   logout,
   getCurrent,
   updateSubscr,
+  updateAvatar,
 };

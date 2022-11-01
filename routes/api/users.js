@@ -1,16 +1,27 @@
 const express = require("express");
-const { getCurrent, updateSubscr } = require("../../controllers");
-const { ctrlWrapper, auth, validateBodyJoi } = require("../../middlewares");
+const { updateSubscr, updateAvatar } = require("../../controllers");
+const {
+  ctrlWrapper,
+  auth,
+  validateBodyJoi,
+  uploadMulter,
+} = require("../../middlewares");
 const { updSubscrSchema } = require("../../models/users");
 
 const router = express.Router();
 
 router.patch(
-  "/",
+  "/subscription",
   auth,
   validateBodyJoi(updSubscrSchema),
   ctrlWrapper(updateSubscr)
 );
-router.get("/current", auth, ctrlWrapper(getCurrent));
+
+router.patch(
+  "/avatar",
+  auth,
+  uploadMulter.single("avatar"),
+  ctrlWrapper(updateAvatar)
+);
 
 module.exports = router;
