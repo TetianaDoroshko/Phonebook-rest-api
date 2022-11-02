@@ -2,9 +2,10 @@ const { User } = require("../../models/users");
 const fs = require("fs/promises");
 const cloudinary = require("../../helpers/cloudinary");
 
-const updateAvatar = async (req, res) => {
+const updateAvatar = async (req, res, next) => {
   const { _id, avatarId } = req.user;
   const { path: tempFile } = req.file;
+
   const result = await cloudinary.uploader.upload(tempFile, {
     gravity: "auto:face",
     height: 250,

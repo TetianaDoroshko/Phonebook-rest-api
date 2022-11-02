@@ -1,3 +1,4 @@
+const fs = require("fs/promises");
 const multer = require("multer");
 const path = require("path");
 const RequestError = require("../helpers/RequestError");
@@ -11,15 +12,18 @@ const multerConfig = multer.diskStorage({
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
-  limits: { fileSize: 2000000 },
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype !== "image") {
-      cb(new RequestError(400, "You could upload images only"));
+});
+
+const uploadMulter = multer({
+  storage: multerConfig,
+  limits: { fileSize: 1000000 },
+  fileFilter: async (req, file, cb) => {
+    if (!file.mimetype.includes("image")) {
+      await fs.unlink(path.join(tempDir, file.originalname));
+      cb(RequestError(400, "You can upload images only"), false);
     }
     cb(null, true);
   },
 });
-
-const uploadMulter = multer({ storage: multerConfig });
 
 module.exports = uploadMulter;
