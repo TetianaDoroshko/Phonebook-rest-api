@@ -4,6 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 const fs = require("fs/promises");
 const fsSync = require("fs");
+const path = require("path");
 
 const contactsRouter = require("./routes/api/contacts");
 const authRouter = require("./routes/api/auth");
@@ -28,11 +29,17 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  const files = fsSync.readdirSync("./uploads");
+  console.log("express error handler");
+  const files = fsSync.readdirSync(path.join(__dirname, "uploads"));
+  console.log(files);
   files.forEach((file) => {
     try {
-      fsSync.unlinkSync(`./uploads/${file}`);
-    } catch (error) {}
+      console.log(file);
+      fsSync.unlinkSync(path.join(__dirname, "uploads", file));
+      console.log(path.join(__dirname, "uploads", file));
+    } catch (error) {
+      console.log("catch error", error);
+    }
   });
   const { status = 500, message = "Server error" } = err;
   res.status(status).json({ message });
