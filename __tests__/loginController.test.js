@@ -1,26 +1,58 @@
 const { login } = require("../controllers");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+// const jest = require("jest");
+
+const app = require("../app");
+const mongoose = require("mongoose");
+const { User } = require("../models/users");
+
+const { TEST_DB_HOST, PORT = 3000 } = process.env;
+
+const user = {
+  email: "ttt@ttt.com",
+  password: "111111",
+};
+
+let userDB = {};
+
+jest.setTimeout(30000);
 
 describe("login controller test", () => {
-  test("response status code = 200", async () => {
-    const secret = process.env.SECRET_JWT;
-    const password = "123123";
-    const hashPass = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-    const req = { body: { email: "example@mail.com", password: password } };
-    const res = {};
-    const userDB = { _id: "1", email: "example@mail.com", password: hashPass };
+  beforeAll((done) => {
+    mongoose
+      .connect(TEST_DB_HOST)
+      .then(() =>
+        app.listen(PORT, () => {
+          console.log(`Database connection successful on port ${PORT}`);
+        })
+      )
+      .catch((error) => {
+        console.log(`Database connection was failed. ${error.message}`);
+        process.exit(1);
+      })
+      .then(async () => {
+        userDB = await User.create(user);
+        console.log(userDB);
+      })
+      .then(() => done());
+  });
 
-    // const token = jwt.sign({ _id: userDB._id }, secret, { expiresIn: "1h" });
+  test("test-case login controller", async (done) => {
+    const req = {
+      body: user,
+      user: userDB,
+    };
+    let res = {};
+    await login(req, res);
+    console.log(res);
+    expect(res.statusCode).toBe(200);
+    done();
+  });
 
-    // const User = {
-    //   findByIdAndUpdate: jest.fn(),
-    //   findOne: jest.fn().mockImplementationOnce(() => userDB),
-    // };
+  afterAll((done) => {
+    app.listen().close();
 
-    // jest.spyOn(User, "findOne").mockImplementationOnce(async () => userDB);
-    expect(async () => {
-      await login(req, res);
-    }).toBe(200);
+    mongoose.connection.close(() => done());
   });
 });

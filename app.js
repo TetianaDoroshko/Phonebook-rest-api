@@ -2,14 +2,10 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
-const fs = require("fs/promises");
-const fsSync = require("fs");
-const path = require("path");
 
 const contactsRouter = require("./routes/api/contacts");
 const authRouter = require("./routes/api/auth");
 const userRouter = require("./routes/api/users");
-const { fsyncSync } = require("fs");
 
 const app = express();
 
@@ -29,18 +25,6 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log("express error handler");
-  const files = fsSync.readdirSync(path.join(__dirname, "uploads"));
-  console.log(files);
-  files.forEach((file) => {
-    try {
-      console.log(file);
-      fsSync.unlinkSync(path.join(__dirname, "uploads", file));
-      console.log(path.join(__dirname, "uploads", file));
-    } catch (error) {
-      console.log("catch error", error);
-    }
-  });
   const { status = 500, message = "Server error" } = err;
   res.status(status).json({ message });
 });
