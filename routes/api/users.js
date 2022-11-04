@@ -30,10 +30,6 @@ router.patch(
 module.exports = router;
 
 // async function multerErrorHandler(err, req, res, next) {
-//   // console.log("err", err);
-//   // console.log("request in multer error handler", req);
-//   // console.log("arg3", arg3);
-//   // console.log("arg4", arg4);
 //   console.log("multer error handler");
 //   // const filename = req.file.originalname;
 //   // console.log(req.file.originalname);
