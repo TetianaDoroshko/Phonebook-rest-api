@@ -4,9 +4,10 @@ const cloudinary = require("../../helpers/cloudinary");
 
 const updateAvatar = async (req, res, next) => {
   const { _id, avatarId } = req.user;
-  const { path: tempFile } = req.file;
 
-  const result = await cloudinary.uploader.upload(tempFile, {
+  const { path } = req.file;
+
+  const result = await cloudinary.uploader.upload(path, {
     gravity: "auto:face",
     height: 250,
     width: 250,
@@ -21,7 +22,7 @@ const updateAvatar = async (req, res, next) => {
     { avatarURL: result.url, avatarId: result.public_id },
     { new: true }
   );
-  await fs.unlink(tempFile);
+  await fs.unlink(path);
   res.json({
     avatarURL: user.avatarURL,
   });

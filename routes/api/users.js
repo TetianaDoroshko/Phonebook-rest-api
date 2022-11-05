@@ -7,8 +7,8 @@ const {
   uploadMulter,
 } = require("../../middlewares");
 const { updSubscrSchema } = require("../../models/users");
-const fs = require("fs/promises");
-const path = require("path");
+// const fs = require("fs/promises");
+// const path = require("path");
 
 const router = express.Router();
 
@@ -23,7 +23,6 @@ router.patch(
   "/avatar",
   auth,
   uploadMulter.single("avatar"),
-  // multerErrorHandler,
   ctrlWrapper(updateAvatar)
 );
 
