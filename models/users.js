@@ -65,6 +65,10 @@ const updSubscrSchema = Joi.object({
     .required(),
 });
 
+const verifySchema = Joi.object({
+  email: Joi.string().email().required(),
+});
+
 // const patchSchema = Joi.object({
 //   name: Joi.string(),
 //   email: Joi.string().email(),
@@ -76,4 +80,10 @@ const updSubscrSchema = Joi.object({
 //   favorite: Joi.boolean().required(),
 // });
 
-module.exports = { User, signupSchema, loginSchema, updSubscrSchema };
+module.exports = {
+  User,
+  signupSchema,
+  loginSchema,
+  updSubscrSchema,
+  verifySchema,
+};

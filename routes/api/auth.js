@@ -1,5 +1,9 @@
 const express = require("express");
-const { signupSchema, loginSchema } = require("../../models/users");
+const {
+  signupSchema,
+  loginSchema,
+  verifySchema,
+} = require("../../models/users");
 const { validateBodyJoi, ctrlWrapper, auth } = require("../../middlewares");
 const {
   signUp,
@@ -7,6 +11,7 @@ const {
   logout,
   getCurrent,
   verifyEmail,
+  resendEmail,
 } = require("../../controllers");
 
 const router = express.Router();
@@ -20,5 +25,7 @@ router.get("/logout", auth, ctrlWrapper(logout));
 router.get("/current", auth, ctrlWrapper(getCurrent));
 
 router.get("/verify/:verificationToken", ctrlWrapper(verifyEmail));
+
+router.post("/verify", validateBodyJoi(verifySchema), ctrlWrapper(resendEmail));
 
 module.exports = router;
