@@ -8,7 +8,7 @@ const { SECRET_JWT: secret } = process.env;
 describe("login controller test", () => {
   const testUser = {
     email: "ttt@ttt.com",
-    password: "111111",
+    password: "999999",
   };
 
   const req = {
