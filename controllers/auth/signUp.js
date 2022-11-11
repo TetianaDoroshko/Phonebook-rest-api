@@ -10,7 +10,7 @@ const signUp = async (req, res, next) => {
   if (user) {
     throw RequestError(409, "Email in use");
   }
-  const hashedPass = await bcrypt.hash(password, await bcrypt.genSalt(10));
+  const hashedPass = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
   const verificationToken = v4();
 
@@ -32,5 +32,4 @@ const signUp = async (req, res, next) => {
     },
   });
 };
-
 module.exports = signUp;
