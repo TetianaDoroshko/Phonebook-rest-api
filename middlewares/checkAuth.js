@@ -20,6 +20,7 @@ const auth = async (req, res, next) => {
     next();
   } catch (error) {
     if (error.message === "invalid signature") {
+      // error of jwt verifying
       error.status = 401;
       error.message = "Not authorized";
     }
