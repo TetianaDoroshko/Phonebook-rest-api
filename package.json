@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./index.js",
     "start:dev": "nodemon ./index.js",
+    "build": "node index",
     "lint": "eslint **/*.js",
     "lint:fix": "eslint --fix **/*.js",
     "test": "jest"
