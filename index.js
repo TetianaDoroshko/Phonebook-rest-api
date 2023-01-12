@@ -10,9 +10,9 @@ const userRouter = require("./routes/api/users");
 
 const app = express();
 
-const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+// const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
-app.use(logger(formatsLogger));
+app.use(logger("dev"));
 app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
