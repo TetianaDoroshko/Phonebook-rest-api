@@ -20,9 +20,9 @@ app.use(express.static("public"));
 app.use("/users", userRouter);
 app.use("/auth", authRouter);
 app.use("/api/contacts", contactsRouter);
-app.get("/", (req, res) => {
-  res.json({ message: "server works" });
-});
+// app.get("/", (req, res) => {
+//   res.json({ message: "server works" });
+// });
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
