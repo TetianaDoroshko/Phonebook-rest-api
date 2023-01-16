@@ -13,6 +13,10 @@ const userSchema = Schema(
       index: true,
       unique: true,
     },
+    name: {
+      type: String,
+      required: [true, "Name is required"],
+    },
     subscription: {
       type: String,
       enum: ["starter", "pro", "business"],
@@ -48,8 +52,9 @@ userSchema.post("save", (error, data, next) => {
 const User = model("user", userSchema);
 
 const signupSchema = Joi.object({
-  password: Joi.string().required(),
+  password: Joi.string().min(6).required(),
   email: Joi.string().email().required(),
+  name: Joi.string().min(2).required(),
   subscription: Joi.string().insensitive(["starter", "pro", "business"]),
   token: Joi.string(),
 });

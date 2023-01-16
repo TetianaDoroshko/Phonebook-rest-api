@@ -16,6 +16,9 @@ const auth = async (req, res, next) => {
     if (!user || user.token !== token) {
       throw RequestError(401, "Not authorized");
     }
+    if (!user.verify) {
+      throw RequestError(401, "Not authorized, need verify email");
+    }
     req.user = user;
     next();
   } catch (error) {

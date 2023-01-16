@@ -21,12 +21,9 @@ app.get("/", (req, res) => {
   res.status(200).json({ message: "API works" });
 });
 
-app.use("/users", userRouter);
-app.use("/auth", authRouter);
+app.use("/api/users", userRouter);
+app.use("/api/auth", authRouter);
 app.use("/api/contacts", contactsRouter);
-// app.get("/", (req, res) => {
-//   res.json({ message: "server works" });
-// });
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
