@@ -39,7 +39,7 @@ const Contact = model("contact", contactSchema);
 
 const addSchema = Joi.object({
   name: Joi.string().required(),
-  email: Joi.string().email().required(),
+  email: Joi.string().email(),
   phone: Joi.string()
     .pattern(/^[0-9()-\s]+$/, "numbers")
     .required(),

@@ -3,6 +3,9 @@ const bcrypt = require("bcryptjs");
 const gravatar = require("gravatar");
 const { v4 } = require("uuid");
 const { RequestError, sendMail } = require("../../helpers");
+const jwt = require("jsonwebtoken");
+
+const secret = process.env.SECRET_JWT;
 
 const signUp = async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -13,16 +16,20 @@ const signUp = async (req, res, next) => {
   const hashedPass = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
   const verificationToken = v4();
-  const token = v4();
 
   const addedUser = await User.create({
     name,
     email,
     password: hashedPass,
-    avatarURL: gravatar.url(email, { s: "200", d: "retro" }, true),
+    avatarURL: gravatar.url(email, { s: "200", d: "mm" }, true),
     verificationToken,
-    token,
   });
+
+  const token = jwt.sign({ _id: addedUser._id }, secret, { expiresIn: "1d" });
+
+  addedUser.token = token;
+
+  await addedUser.save();
 
   await sendMail(email, verificationToken);
 
