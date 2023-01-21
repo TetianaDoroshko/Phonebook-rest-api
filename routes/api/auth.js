@@ -4,7 +4,12 @@ const {
   loginSchema,
   verifySchema,
 } = require("../../models/users");
-const { validateBodyJoi, ctrlWrapper, auth } = require("../../middlewares");
+const {
+  validateBodyJoi,
+  ctrlWrapper,
+  auth,
+  authUnverify,
+} = require("../../middlewares");
 const {
   signUp,
   login,
@@ -20,7 +25,7 @@ router.post("/signup", validateBodyJoi(signupSchema), ctrlWrapper(signUp));
 
 router.post("/login", validateBodyJoi(loginSchema), ctrlWrapper(login));
 
-router.get("/logout", auth, ctrlWrapper(logout));
+router.get("/logout", authUnverify, ctrlWrapper(logout));
 
 router.get("/current", auth, ctrlWrapper(getCurrent));
 
