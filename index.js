@@ -10,10 +10,13 @@ const userRouter = require("./routes/api/users");
 
 const app = express();
 
-// const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+const corsOptions = {
+  origin: "https://tetianadoroshko.github.io",
+  optionsSuccessStatus: 200,
+};
 
 app.use(logger("dev"));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static("public"));
 
